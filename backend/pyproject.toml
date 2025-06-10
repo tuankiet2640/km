@@ -1,0 +1,90 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "km-backend"
+version = "1.0.0"
+description = "KM FastAPI Backend - AI Knowledge Base Platform"
+authors = [
+    {name = "KM Team", email = "info@km.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["fastapi", "ai", "rag", "knowledge-base", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/1Panel-dev/KM"
+Documentation = "https://docs.km.com"
+Repository = "https://github.com/1Panel-dev/KM"
+Issues = "https://github.com/1Panel-dev/KM/issues"
+
+[tool.setuptools]
+packages = ["app"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbosity=2",
+]
+markers = [
+    "slow: marks tests as slow",
+    "unit: marks tests as unit tests",
+    "integration: marks tests as integration tests",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+] 
