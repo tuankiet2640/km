@@ -1,6 +1,6 @@
 # KM - Knowledge Management Platform
 
-A comprehensive, modern refactor of MaxKB built with FastAPI and React.js, featuring advanced AI-powered knowledge management, retrieval-augmented generation (RAG), and multi-modal chat capabilities.
+A comprehensive, modern platform built with FastAPI and React.js, featuring advanced AI-powered knowledge management, retrieval-augmented generation (RAG), and multi-modal chat capabilities.
 
 ## 🎯 Overview
 
