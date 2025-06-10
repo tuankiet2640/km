@@ -427,10 +427,10 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 📞 Support
 
-- 📧 Email: support@km-platform.com
-- 💬 Discord: [Join our community](https://discord.gg/km-platform)
-- 📚 Documentation: [Full docs](https://docs.km-platform.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-org/km-platform/issues)
+- 📧 Email: not yet created
+- 💬 Discord: [Join our community](https://discord.gg/)
+- 📚 Documentation: [Full docs](https://google.com)
+- 🐛 Issues: [GitHub Issues](https://github.com/tuankiet2640/km/issues)
 
 ---
 
