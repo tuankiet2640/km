@@ -6,6 +6,7 @@ export function Sidebar() {
   const navigation = [
     { name: 'Dashboard', href: '/', icon: '🏠' },
     { name: 'Datasets', href: '/datasets', icon: '📚' },
+    { name: 'Models', href: '/models', icon: '⚙️' },
     { name: 'Applications', href: '/applications', icon: '🤖' },
     { name: 'Chat', href: '/chat', icon: '💬' },
   ]

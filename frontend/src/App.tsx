@@ -6,6 +6,7 @@ import { Register } from '@/pages/auth/Register'
 import { Dashboard } from '@/pages/Dashboard'
 import { Datasets } from '@/pages/Datasets'
 import { Applications } from '@/pages/Applications'
+import { Models } from '@/pages/Models'
 import { Chat } from '@/pages/Chat'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 
@@ -30,6 +31,7 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="datasets" element={<Datasets />} />
+          <Route path="models" element={<Models />} />
           <Route path="applications" element={<Applications />} />
           <Route path="chat/:id?" element={<Chat />} />
         </Route>
