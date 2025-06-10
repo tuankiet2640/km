@@ -420,7 +420,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🙏 Acknowledgments
 
-- **MaxKB Team**: For the original inspiration and architecture
 - **FastAPI**: For the excellent async Python framework
 - **React Community**: For the robust frontend ecosystem
 - **pgvector**: For PostgreSQL vector search capabilities
