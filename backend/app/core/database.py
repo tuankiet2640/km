@@ -5,7 +5,7 @@ Database configuration and session management for KM.
 from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import MetaData
+from sqlalchemy import MetaData, text
 import logging
 import os
 
@@ -53,7 +53,7 @@ class Base(DeclarativeBase):
     )
 
 
-async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """
     Dependency function that yields database sessions.
     
@@ -76,12 +76,15 @@ async def init_db() -> None:
     """
     try:
         # Import all models to ensure they are registered with SQLAlchemy
-        from app.models import user, dataset, application, document, chat  # noqa
+        from app.models import (
+            user, dataset, application, document, chat, model, workflow, mcp
+        )
         
         logger.info("Initializing database...")
         
         # Create all tables
         async with engine.begin() as conn:
+            await conn.execute(text('CREATE EXTENSION IF NOT EXISTS vector'))
             await conn.run_sync(Base.metadata.create_all)
             
         logger.info("Database initialized successfully")

@@ -162,7 +162,7 @@ class FileMessageRequest(BaseModel):
 
 class OpenAIChatMessage(BaseModel):
     """OpenAI-compatible chat message."""
-    role: str = Field(..., regex="^(system|user|assistant)$")
+    role: str = Field(..., pattern="^(system|user|assistant)$")
     content: str
 
 

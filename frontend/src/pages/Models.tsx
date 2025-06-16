@@ -17,10 +17,10 @@ import {
 import { toast } from 'react-hot-toast';
 
 import { modelService } from '../services/modelService';
-import { Modal } from '../components/Modal';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import { ModelCreateForm } from '../components/ModelCreateForm';
-import { ConfirmDialog } from '../components/ConfirmDialog';
+import { Modal } from '../components/Modal.js';
+import { LoadingSpinner } from '../components/LoadingSpinner.js';
+import { ModelCreateForm } from '../components/ModelCreateForm.js';
+import { ConfirmDialog } from '../components/ConfirmDialog.js';
 
 interface Model {
   id: string;

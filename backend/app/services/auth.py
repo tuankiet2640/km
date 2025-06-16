@@ -11,7 +11,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.core.database import get_db_session
+from app.core.database import get_db
 from app.models.user import User
 from app.schemas.auth import TokenData
 from app.services.user import UserService
@@ -71,7 +71,7 @@ class AuthService:
     @staticmethod
     async def get_current_user(
         token: str = Depends(oauth2_scheme),
-        db: AsyncSession = Depends(get_db_session)
+        db: AsyncSession = Depends(get_db)
     ) -> User:
         """Get current user from JWT token."""
         credentials_exception = HTTPException(

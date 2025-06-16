@@ -1,53 +1,63 @@
 version: '3.8'
 
 services:
-  # Database
+  # Database 
   postgres:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_DB: km
-      POSTGRES_USER: km
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: kmdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U km -d km"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d kmdb"]
       interval: 30s
       timeout: 10s
       retries: 5
 
-  # Redis
+  # Redis - Enhanced for AI platform
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 30s
       timeout: 10s
       retries: 5
 
-  # Backend API
+  # Backend API - Updated for AI platform
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: postgresql://km:password@postgres:5432/km
+      DATABASE_URL: postgresql://postgres:12345678@postgres:5432/kmdb
       REDIS_URL: redis://redis:6379/0
-      SECRET_KEY: your-super-secret-key-change-this
+      SECRET_KEY: ai-platform-super-secret-key-change-this
       DEBUG: "True"
       ENVIRONMENT: development
+      APP_NAME: "KM AI Platform"
+      APP_VERSION: "2.0.0"
+      MCP_ENABLED: "true"
+      WORKFLOW_ENGINE_ENABLED: "true"
+      MULTIMODAL_ENABLED: "true"
+      STREAMING_ENABLED: "true"
+      WEB_SCRAPING_ENABLED: "true"
+      ANALYTICS_ENABLED: "true"
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
       - ./uploads:/app/uploads
+      - ./logs:/app/logs
     depends_on:
       postgres:
         condition: service_healthy
@@ -55,7 +65,31 @@ services:
         condition: service_healthy
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-  # Frontend
+  # Celery Worker for background tasks
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://postgres:12345678@postgres:5432/kmdb
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      SECRET_KEY: ai-platform-super-secret-key-change-this
+      DEBUG: "True"
+      ENVIRONMENT: development
+    volumes:
+      - ./backend:/app
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A app.core.celery worker --loglevel=info
+
+  # Frontend - Updated for AI platform
   frontend:
     build:
       context: ./frontend
@@ -67,6 +101,11 @@ services:
       - /app/node_modules
     environment:
       - VITE_API_URL=http://localhost:8000
+      - VITE_APP_NAME="KM AI Platform"
+      - VITE_APP_VERSION="2.0.0"
+      - VITE_STREAMING_ENABLED=true
+      - VITE_MULTIMODAL_ENABLED=true
+      - VITE_MCP_ENABLED=true
     depends_on:
       - backend
     command: npm run dev

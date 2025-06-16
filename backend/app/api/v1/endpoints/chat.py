@@ -12,7 +12,7 @@ import json
 import asyncio
 import time
 
-from app.core.database import get_db_session
+from app.core.database import get_db
 from app.models.user import User
 from app.schemas.chat import (
     ChatCreate, ChatResponse, ChatList, ChatMessageCreate, 
@@ -29,7 +29,7 @@ router = APIRouter()
 @router.get("/", response_model=ChatList)
 async def list_chats(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     application_id: UUID = None,
     skip: int = 0,
@@ -58,7 +58,7 @@ async def list_chats(
 @router.post("/", response_model=ChatResponse, status_code=status.HTTP_201_CREATED)
 async def create_chat(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_data: ChatCreate,
 ) -> Any:
@@ -78,7 +78,7 @@ async def create_chat(
 @router.get("/{chat_id}", response_model=ChatResponse)
 async def get_chat(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
 ) -> Any:
@@ -107,7 +107,7 @@ async def get_chat(
 @router.post("/{chat_id}/messages", response_model=ChatMessageResponse)
 async def send_message(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
     message_data: ChatMessageCreate,
@@ -145,7 +145,7 @@ async def send_message(
 @router.post("/{chat_id}/stream")
 async def stream_chat(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
     request_data: StreamingChatRequest,
@@ -209,7 +209,7 @@ async def stream_chat(
 @router.post("/{chat_id}/voice")
 async def send_voice_message(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
     audio_file: UploadFile = File(...),
@@ -255,7 +255,7 @@ async def send_voice_message(
 @router.post("/{chat_id}/files")
 async def send_file_message(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
     files: List[UploadFile] = File(...),
@@ -302,7 +302,7 @@ async def send_file_message(
 @router.get("/{chat_id}/messages")
 async def get_chat_messages(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
     skip: int = 0,
@@ -339,7 +339,7 @@ async def get_chat_messages(
 @router.delete("/{chat_id}")
 async def delete_chat(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
 ) -> Any:
@@ -369,7 +369,7 @@ async def delete_chat(
 @router.post("/{chat_id}/feedback")
 async def submit_message_feedback(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     chat_id: UUID,
     message_id: UUID,
@@ -415,7 +415,7 @@ async def submit_message_feedback(
 @router.post("/openai/chat/completions")
 async def openai_chat_completions(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     request: OpenAIChatRequest,
     api_key: str = Depends(ChatService.verify_api_key),
 ) -> Any:

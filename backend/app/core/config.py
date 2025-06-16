@@ -1,6 +1,7 @@
 """
-Configuration settings for KM FastAPI backend.
+Configuration settings for AI Knowledge Platform FastAPI backend.
 Uses Pydantic Settings for environment variable management.
+Updated to support advanced AI features including MCP, workflows, and multi-modal capabilities.
 """
 
 from typing import List, Optional, Union
@@ -14,8 +15,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
     
     # Application
-    APP_NAME: str = "KM"
-    APP_VERSION: str = "1.0.0"
+    APP_NAME: str = "KM AI Platform"
+    APP_VERSION: str = "2.0.0"
     DEBUG: bool = False
     ENVIRONMENT: str = "production"
     LOG_LEVEL: str = "INFO"
@@ -36,22 +37,27 @@ class Settings(BaseSettings):
     REDIS_URL: RedisDsn
     REDIS_PASSWORD: Optional[str] = None
     
-    # AI Models
+    # AI Models - Enhanced for multiple providers
     OPENAI_API_KEY: Optional[str] = None
     ANTHROPIC_API_KEY: Optional[str] = None
+    DEEPSEEK_API_KEY: Optional[str] = None
+    QWEN_API_KEY: Optional[str] = None
     DEFAULT_MODEL_PROVIDER: str = "openai"
     DEFAULT_LLM_MODEL: str = "gpt-3.5-turbo"
     DEFAULT_EMBEDDING_MODEL: str = "text-embedding-ada-002"
     
-    # File Upload
+    # File Upload - Enhanced
     MAX_FILE_SIZE_MB: int = 100
     UPLOAD_DIR: str = "./uploads"
-    ALLOWED_EXTENSIONS: str = "pdf,docx,txt,md,csv,xlsx"
+    ALLOWED_EXTENSIONS: str = "pdf,docx,txt,md,csv,xlsx,pptx,xls,json,yaml,yml"
     
-    # Vector Database
+    # Vector Database - Enhanced
     VECTOR_DIMENSION: int = 1536
     VECTOR_INDEX_TYPE: str = "ivfflat"
     VECTOR_LISTS: int = 100
+    SIMILARITY_THRESHOLD: float = 0.7
+    RETRIEVAL_LIMIT: int = 10
+    SEARCH_MODE: str = "semantic"  # semantic, keyword, hybrid
     
     # Celery
     CELERY_BROKER_URL: RedisDsn
@@ -66,6 +72,26 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = 60
     RATE_LIMIT_BURST: int = 100
+    
+    # Advanced AI Features
+    MCP_ENABLED: bool = True
+    MCP_TIMEOUT: int = 180
+    WORKFLOW_ENGINE_ENABLED: bool = True
+    MULTIMODAL_ENABLED: bool = True
+    STREAMING_ENABLED: bool = True
+    
+    # Web Scraping & Crawling
+    WEB_SCRAPING_ENABLED: bool = True
+    MAX_CRAWL_DEPTH: int = 3
+    CRAWL_DELAY: int = 1
+    
+    # SSO & Enterprise Features
+    SSO_ENABLED: bool = False
+    LDAP_ENABLED: bool = False
+    
+    # Analytics & Monitoring
+    ANALYTICS_ENABLED: bool = True
+    METRICS_ENABLED: bool = True
     
     @field_validator("ALLOWED_ORIGINS", mode="before")
     @classmethod
@@ -106,6 +132,20 @@ class Settings(BaseSettings):
     def max_file_size_bytes(self) -> int:
         """Get maximum file size in bytes."""
         return self.MAX_FILE_SIZE_MB * 1024 * 1024
+    
+    @property
+    def supported_ai_providers(self) -> List[str]:
+        """Get list of supported AI providers."""
+        providers = []
+        if self.OPENAI_API_KEY:
+            providers.append("openai")
+        if self.ANTHROPIC_API_KEY:
+            providers.append("anthropic")
+        if self.DEEPSEEK_API_KEY:
+            providers.append("deepseek")
+        if self.QWEN_API_KEY:
+            providers.append("qwen")
+        return providers
 
 
 # Global settings instance

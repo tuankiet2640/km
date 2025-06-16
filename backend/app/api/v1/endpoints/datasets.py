@@ -8,7 +8,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.database import get_db_session
+from app.core.database import get_db
 from app.models.user import User
 from app.schemas.dataset import (
     DatasetCreate, DatasetUpdate, DatasetResponse, DatasetList,
@@ -24,7 +24,7 @@ router = APIRouter()
 @router.get("/", response_model=DatasetList)
 async def list_datasets(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=1000),
@@ -57,7 +57,7 @@ async def list_datasets(
 @router.post("/", response_model=DatasetResponse, status_code=status.HTTP_201_CREATED)
 async def create_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_data: DatasetCreate,
 ) -> Any:
@@ -81,7 +81,7 @@ async def create_dataset(
 @router.get("/{dataset_id}", response_model=DatasetResponse)
 async def get_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
 ) -> Any:
@@ -110,7 +110,7 @@ async def get_dataset(
 @router.put("/{dataset_id}", response_model=DatasetResponse)
 async def update_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
     dataset_data: DatasetUpdate,
@@ -141,7 +141,7 @@ async def update_dataset(
 @router.delete("/{dataset_id}")
 async def delete_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
 ) -> Any:
@@ -171,7 +171,7 @@ async def delete_dataset(
 @router.post("/{dataset_id}/vectorize")
 async def vectorize_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
 ) -> Any:
@@ -208,7 +208,7 @@ async def vectorize_dataset(
 @router.post("/{dataset_id}/sync")
 async def sync_web_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
     sync_data: DatasetSync,
@@ -251,7 +251,7 @@ async def sync_web_dataset(
 @router.post("/{dataset_id}/import")
 async def import_dataset_content(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
     file: UploadFile = File(...),
@@ -298,7 +298,7 @@ async def import_dataset_content(
 @router.get("/{dataset_id}/export")
 async def export_dataset(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
     format: str = Query("json", description="Export format: json, csv, txt"),
@@ -341,7 +341,7 @@ async def export_dataset(
 @router.get("/{dataset_id}/statistics")
 async def get_dataset_statistics(
     *,
-    db: AsyncSession = Depends(get_db_session),
+    db: AsyncSession = Depends(get_db),
     current_user: User = Depends(AuthService.get_current_active_user),
     dataset_id: UUID,
 ) -> Any:

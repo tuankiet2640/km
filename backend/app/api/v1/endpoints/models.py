@@ -6,9 +6,10 @@ from typing import List, Optional
 from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.auth import get_current_user
+from app.services.auth import AuthService
 from app.models.user import User
 from app.schemas.model import (
     ModelCreate, ModelUpdate, ModelResponse, ModelListResponse,
@@ -70,8 +71,8 @@ async def get_model_default_params(
 @router.post("/", response_model=ModelResponse)
 async def create_model(
     model_data: ModelCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Create a new model."""
     service = ModelService(db)
@@ -84,8 +85,8 @@ async def create_model(
 @router.get("/", response_model=ModelListResponse)
 async def get_models(
     model_type: Optional[str] = Query(None, description="Filter by model type"),
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Get user's models."""
     service = ModelService(db)
@@ -96,8 +97,8 @@ async def get_models(
 @router.get("/{model_id}", response_model=ModelResponse)
 async def get_model(
     model_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Get a specific model."""
     service = ModelService(db)
@@ -111,8 +112,8 @@ async def get_model(
 async def update_model(
     model_id: UUID,
     model_data: ModelUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Update a model."""
     service = ModelService(db)
@@ -127,8 +128,8 @@ async def update_model(
 @router.delete("/{model_id}")
 async def delete_model(
     model_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Delete a model."""
     service = ModelService(db)
@@ -143,8 +144,8 @@ async def delete_model(
 async def test_model(
     model_id: UUID,
     test_data: ModelTestRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Test a model connection."""
     service = ModelService(db)
@@ -158,8 +159,8 @@ async def test_model(
 @router.post("/{model_id}/download")
 async def download_model(
     model_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Download a model (for Ollama, etc.)."""
     service = ModelService(db)
@@ -175,8 +176,8 @@ async def download_model(
 @router.put("/{model_id}/pause")
 async def pause_model_download(
     model_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Pause model download."""
     service = ModelService(db)
@@ -197,8 +198,8 @@ async def pause_model_download(
 @router.get("/{model_id}/params", response_model=ModelParamsResponse)
 async def get_model_params(
     model_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Get model parameter form."""
     service = ModelService(db)
@@ -214,8 +215,8 @@ async def get_model_params(
 async def save_model_params(
     model_id: UUID,
     params_data: ModelParamsResponse,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(AuthService.get_current_user)
 ):
     """Save model parameter form."""
     service = ModelService(db)

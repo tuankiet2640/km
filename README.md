@@ -1,32 +1,52 @@
-# KM - Knowledge Management Platform
+# KM AI Platform - Advanced Knowledge Management System
 
-A comprehensive, modern platform built with FastAPI and React.js, featuring advanced AI-powered knowledge management, retrieval-augmented generation (RAG), and multi-modal chat capabilities.
+A comprehensive, enterprise-grade AI platform built with FastAPI and React.js, featuring advanced AI-powered knowledge management, retrieval-augmented generation (RAG), multi-modal chat capabilities, workflow orchestration, and MCP (Model Context Protocol) integration.
 
 ## 🎯 Overview
 
-KM is a complete AI platform, delivering enterprise-grade knowledge management with cutting-edge AI integration. Built from the ground up with modern technologies, it provides a scalable, maintainable, and feature-rich solution for organizations seeking to harness the power of their knowledge assets.
+KM AI Platform is a complete, next-generation AI knowledge management system that delivers enterprise-grade capabilities with cutting-edge AI integration. Built from the ground up with modern technologies, it provides a scalable, maintainable, and feature-rich solution for organizations seeking to harness the power of their knowledge assets through advanced AI workflows and intelligent automation.
 
 ## ✨ Key Features
 
 ### 🧠 Advanced AI Chat System
 - **Real-time Streaming Responses**: Live AI responses with token-by-token streaming
-- **Multi-modal Input Support**: Text, voice, files, and images
-- **OpenAI-Compatible API**: Seamless integration with existing tools
+- **Multi-modal Input Support**: Text, voice, files, images, and workflow execution
+- **Multiple AI Provider Support**: OpenAI, Anthropic, DeepSeek, Qwen, and more
 - **Mobile & Touch Optimized**: Native mobile experience with touch controls
 - **Context-Aware Conversations**: Maintains conversation history and context
 - **Voice Recognition & Synthesis**: Speech-to-text and text-to-speech capabilities
 - **File Processing**: Direct file upload and processing in chat
 - **Quality Feedback System**: User ratings and feedback collection
+- **MCP Tool Integration**: External tool calling and service integration
 
-### 📚 Comprehensive Knowledge Base System
+### 📚 Enhanced Knowledge Base System
 - **Hierarchical Organization**: Dataset → Document → Paragraph → Problem structure
 - **Multiple Dataset Types**: Base, Web-scraped, and External integrations
-- **Advanced Document Processing**: PDF, DOCX, TXT, CSV, and more
+- **Advanced Document Processing**: PDF, DOCX, TXT, CSV, XLSX, PPTX, and more
 - **Intelligent Text Splitting**: Configurable chunking strategies
-- **Vector Embeddings**: pgvector-powered semantic search
+- **Vector Embeddings**: pgvector-powered semantic search with hybrid search modes
 - **Auto-generated Questions**: AI-generated questions for enhanced retrieval
 - **Import/Export Capabilities**: Flexible data exchange formats
 - **Web Synchronization**: Automated web content crawling and updates
+- **Smart Data Analytics**: Document intelligence and content insights
+
+### 🔧 Workflow Engine
+- **Visual Workflow Designer**: Drag-and-drop workflow creation
+- **Multiple Node Types**: AI Chat, Knowledge Retrieval, Conditions, Functions, MCP Tools
+- **Complex Business Logic**: Support for conditional flows and decision trees
+- **Template Library**: Pre-built workflow templates for common scenarios
+- **Real-time Execution**: Live workflow monitoring and debugging
+- **Error Handling**: Robust retry mechanisms and error recovery
+- **Performance Analytics**: Detailed execution metrics and optimization insights
+
+### 🔌 MCP (Model Context Protocol) Integration
+- **External Tool Connectivity**: Seamless integration with external services
+- **Multi-transport Support**: SSE, HTTP, and WebSocket connectivity
+- **Database Integration**: Direct database querying and manipulation
+- **Chart Generation**: Dynamic chart and visualization creation
+- **Custom Function Support**: User-defined functions and tools
+- **Security Controls**: Authentication and permission management
+- **Health Monitoring**: Automatic service health checks and failover
 
 ### 🔍 Powerful Search & Retrieval
 - **Semantic Search**: Vector similarity-based content discovery
@@ -36,6 +56,7 @@ KM is a complete AI platform, delivering enterprise-grade knowledge management w
 - **Search Analytics**: Detailed usage and performance metrics
 - **Hit Tracking**: Popular content identification
 - **Multi-dataset Search**: Cross-dataset query capabilities
+- **Smart Filtering**: Advanced filtering and faceted search
 
 ### 🚀 Enterprise-Ready Architecture
 - **Async FastAPI Backend**: High-performance, scalable API
@@ -54,8 +75,9 @@ KM is a complete AI platform, delivering enterprise-grade knowledge management w
 - **Rate Limiting**: DDoS protection and resource management
 - **CORS Configuration**: Cross-origin request handling
 - **Input Validation**: Comprehensive data validation
+- **Audit Logging**: Complete activity tracking
 
-## 🏗️ Architecture
+## 🏗️ Enhanced Architecture
 
 ### Backend (FastAPI)
 ```
@@ -63,20 +85,23 @@ backend/
 ├── app/
 │   ├── main.py                 # FastAPI application
 │   ├── core/                   # Core configuration
-│   │   ├── config.py          # Settings and environment
-│   │   ├── database.py        # Database connection
-│   │   └── logging.py         # Logging configuration
+│   │   ├── config.py          # Enhanced settings
+│   │   ├── database.py        # Database with pgvector
+│   │   └── logging.py         # Structured logging
 │   ├── models/                 # SQLAlchemy models
 │   │   ├── user.py            # User and authentication
 │   │   ├── dataset.py         # Knowledge base structure
 │   │   ├── document.py        # Document and paragraph models
-│   │   ├── application.py     # AI application models
-│   │   └── chat.py            # Chat and message models
+│   │   ├── application.py     # Enhanced AI application models
+│   │   ├── chat.py            # Multi-modal chat models
+│   │   ├── workflow.py        # NEW: Workflow engine models
+│   │   └── mcp.py             # NEW: MCP integration models
 │   ├── schemas/                # Pydantic schemas
 │   │   ├── auth.py            # Authentication schemas
 │   │   ├── dataset.py         # Dataset management schemas
 │   │   ├── chat.py            # Chat interaction schemas
-│   │   └── user.py            # User management schemas
+│   │   ├── workflow.py        # NEW: Workflow schemas
+│   │   └── mcp.py             # NEW: MCP schemas
 │   ├── api/                    # API routes
 │   │   └── v1/
 │   │       ├── endpoints/     # Route implementations
@@ -84,49 +109,54 @@ backend/
 │   └── services/               # Business logic
 │       ├── auth.py            # Authentication service
 │       ├── dataset.py         # Dataset management
-│       ├── chat.py            # Chat processing
-│       ├── rag.py             # RAG implementation
+│       ├── chat.py            # Enhanced chat processing
+│       ├── rag.py             # Advanced RAG implementation
 │       ├── embedding.py       # Vector operations
+│       ├── workflow_engine.py # NEW: Workflow orchestration
+│       ├── mcp_client.py      # NEW: MCP service integration
 │       └── user.py            # User management
 ```
 
-### Frontend (React.js)
-```
-frontend/
-├── src/
-│   ├── components/            # Reusable components
-│   │   ├── Layout/           # Main layout components
-│   │   ├── Chat/             # Chat interface
-│   │   ├── Dataset/          # Dataset management
-│   │   └── Common/           # Shared components
-│   ├── pages/                # Page components
-│   │   ├── Dashboard.tsx     # Main dashboard
-│   │   ├── Login.tsx         # Authentication
-│   │   ├── Datasets.tsx      # Dataset management
-│   │   ├── Applications.tsx  # Application management
-│   │   └── Chat.tsx          # Chat interface
-│   ├── services/             # API integration
-│   │   ├── api.ts            # Base API client
-│   │   ├── auth.ts           # Authentication API
-│   │   ├── datasets.ts       # Dataset API
-│   │   └── chat.ts           # Chat API
-│   ├── store/                # State management
-│   │   └── auth.ts           # Authentication store
-│   └── types/                # TypeScript definitions
-```
+### New Capabilities Added
+
+#### 1. Workflow Engine
+- **Node-based Execution**: Visual workflow creation with multiple node types
+- **Conditional Logic**: Smart decision making and branching
+- **Integration Points**: Seamless connection with AI models and external tools
+- **Template System**: Reusable workflow templates for common scenarios
+- **Real-time Monitoring**: Live execution tracking and performance metrics
+
+#### 2. MCP (Model Context Protocol) Support
+- **External Tool Integration**: Connect to databases, APIs, and external services
+- **Multi-transport Support**: SSE, HTTP, and WebSocket connectivity
+- **Security Framework**: Authentication and authorization for external services
+- **Health Monitoring**: Automatic service health checks and status tracking
+- **Usage Analytics**: Detailed tool usage and performance metrics
+
+#### 3. Enhanced Multi-modal Support
+- **Voice Processing**: Speech-to-text and text-to-speech capabilities
+- **File Handling**: Advanced document processing and analysis
+- **Image Analysis**: Image understanding and description capabilities
+- **Rich Media Support**: Video and audio content processing
+
+#### 4. Advanced Search Capabilities
+- **Hybrid Search**: Combines semantic and keyword search for optimal results
+- **Smart Filtering**: Advanced filtering and faceted search options
+- **Performance Optimization**: Caching and indexing for fast retrieval
+- **Analytics Dashboard**: Comprehensive search analytics and insights
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Docker and Docker Compose
+- PostgreSQL 15+ with pgvector extension
 - Node.js 18+ (for development)
 - Python 3.11+ (for development)
-- PostgreSQL 15+ with pgvector extension
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-org/km-platform.git
-cd km-platform/fastAPI-reactJS-refactor
+git clone https://github.com/your-org/km-ai-platform.git
+cd km-ai-platform
 ```
 
 ### 2. Environment Setup
@@ -135,28 +165,26 @@ cp backend/env.example backend/.env
 cp frontend/.env.example frontend/.env
 ```
 
-Configure your environment variables:
+Configure your environment variables (database credentials are already set for your PostgreSQL setup):
 ```env
-# Database
-DATABASE_URL=postgresql+asyncpg://km_user:km_password@localhost:5432/km_db
+# Database (Updated for your setup)
+DATABASE_URL=postgresql+asyncpg://postgres:12345678@localhost:5432/kmdb
 
 # AI Models
 OPENAI_API_KEY=your_openai_api_key
-DEFAULT_LLM_MODEL=gpt-3.5-turbo
-DEFAULT_EMBEDDING_MODEL=text-embedding-ada-002
+DEEPSEEK_API_KEY=your_deepseek_api_key
+QWEN_API_KEY=your_qwen_api_key
 
-# Security
-SECRET_KEY=your_secret_key_here
+# Advanced Features
+MCP_ENABLED=true
+WORKFLOW_ENGINE_ENABLED=true
+MULTIMODAL_ENABLED=true
+STREAMING_ENABLED=true
 ```
 
 ### 3. Launch with Docker
 ```bash
 docker-compose up -d
-```
-
-Or use the convenience script:
-```bash
-./start.sh
 ```
 
 ### 4. Access the Application
@@ -166,253 +194,163 @@ Or use the convenience script:
 
 ## 📖 Core Concepts
 
-### Knowledge Base Hierarchy
-KM organizes knowledge in a four-tier hierarchy:
+### Enhanced Knowledge Management
+The platform now supports:
 
-1. **Dataset**: Top-level knowledge container (e.g., "Company Policies")
-2. **Document**: Individual files within a dataset (e.g., "Employee Handbook.pdf")
-3. **Paragraph**: Text chunks optimized for retrieval (e.g., "Vacation policy section")
-4. **Problem**: Auto-generated questions for enhanced search (e.g., "How many vacation days?")
+1. **Advanced RAG Pipeline**: Multi-stage retrieval with hybrid search
+2. **Workflow Integration**: Knowledge retrieval as part of complex workflows
+3. **MCP Tool Access**: External data sources and tools integration
+4. **Real-time Analytics**: Live insights into knowledge usage and performance
 
-### RAG Pipeline
-The Retrieval-Augmented Generation pipeline:
+### Workflow Orchestration
+Create complex AI workflows with:
 
-1. **Query Processing**: User query is converted to embeddings
-2. **Similarity Search**: Vector search finds relevant paragraphs
-3. **Context Assembly**: Top results are combined with conversation history
-4. **AI Generation**: LLM generates response using retrieved context
-5. **Source Attribution**: Results include source references and similarity scores
+1. **Visual Designer**: Drag-and-drop workflow creation
+2. **Multiple Node Types**: AI, retrieval, logic, and integration nodes
+3. **Conditional Logic**: Smart branching and decision making
+4. **Template Library**: Pre-built workflows for common scenarios
 
-### Multi-modal Chat
-Support for various input types:
+### MCP Integration
+Connect to external services:
 
-- **Text**: Standard text messages
-- **Voice**: Speech-to-text with audio processing
-- **Files**: Document upload with text extraction
-- **Images**: Image analysis and description (planned)
-- **Workflow**: Custom workflow execution (planned)
+1. **Database Queries**: Direct database access and manipulation
+2. **API Integrations**: REST API calls and data processing
+3. **Chart Generation**: Dynamic visualization creation
+4. **Custom Tools**: User-defined functions and integrations
 
 ## 🔧 Configuration
 
-### AI Models
-Configure different AI providers:
+### Database Setup
+Your PostgreSQL database is already configured:
+```env
+DATABASE_URL=postgresql+asyncpg://postgres:12345678@localhost:5432/kmdb
+```
 
-```python
-# OpenAI
+### AI Provider Configuration
+```env
+# Multiple AI providers supported
 OPENAI_API_KEY=sk-...
-DEFAULT_LLM_MODEL=gpt-4
-DEFAULT_EMBEDDING_MODEL=text-embedding-ada-002
-
-# Anthropic
+DEEPSEEK_API_KEY=sk-...
+QWEN_API_KEY=qwen-...
 ANTHROPIC_API_KEY=sk-ant-...
-DEFAULT_LLM_MODEL=claude-3-sonnet-20240229
-
-# Local Models
-LOCAL_MODEL_PATH=/path/to/models
-LOCAL_MODEL_DEVICE=cuda
 ```
 
-### Vector Search
-Customize search behavior:
+### Advanced Features
+```env
+# Enable advanced capabilities
+MCP_ENABLED=true
+WORKFLOW_ENGINE_ENABLED=true
+MULTIMODAL_ENABLED=true
+STREAMING_ENABLED=true
+WEB_SCRAPING_ENABLED=true
+ANALYTICS_ENABLED=true
+```
 
+## 🔌 Enhanced API Reference
+
+### New Workflow Endpoints
+```http
+GET    /api/v1/workflows/                    # List workflows
+POST   /api/v1/workflows/                    # Create workflow
+GET    /api/v1/workflows/{id}                # Get workflow
+PUT    /api/v1/workflows/{id}                # Update workflow
+POST   /api/v1/workflows/{id}/execute        # Execute workflow
+GET    /api/v1/workflows/{id}/executions     # Get executions
+```
+
+### New MCP Endpoints
+```http
+GET    /api/v1/mcp/servers/                  # List MCP servers
+POST   /api/v1/mcp/servers/                  # Register server
+POST   /api/v1/mcp/servers/{id}/test         # Test connection
+POST   /api/v1/mcp/tools/call                # Call MCP tool
+GET    /api/v1/mcp/tools/history             # Tool call history
+```
+
+### Enhanced Chat Endpoints
+```http
+POST   /api/v1/chat/{id}/stream              # Streaming chat
+POST   /api/v1/chat/{id}/voice               # Voice message
+POST   /api/v1/chat/{id}/files               # File upload
+POST   /api/v1/chat/{id}/workflow            # Workflow execution
+```
+
+## 🔬 Advanced Use Cases
+
+### 1. Intelligent Question Answering with Charts
 ```python
-VECTOR_DIMENSION=1536          # Embedding dimension
-DEFAULT_SIMILARITY_THRESHOLD=0.7    # Minimum similarity score
-DEFAULT_RETRIEVAL_LIMIT=10     # Max results per search
-DEFAULT_SEARCH_MODE=semantic   # semantic, keyword, hybrid
+# Example workflow: Query database + Generate chart
+workflow = {
+    "nodes": [
+        {"type": "mcp_tool", "tool": "database_query"},
+        {"type": "mcp_tool", "tool": "chart_generator"},
+        {"type": "ai_chat", "model": "gpt-4"}
+    ]
+}
 ```
 
-### Document Processing
-Configure text processing:
-
+### 2. Multi-step Research Assistant
 ```python
-PDF_PARSER=pymupdf            # PDF processing library
-TEXT_SPLITTER=recursive       # Text splitting strategy
-MAX_FILE_SIZE_MB=100          # Maximum upload size
-ALLOWED_EXTENSIONS=pdf,docx,txt,md,csv
+# Example: Web search + Knowledge retrieval + Analysis
+workflow = {
+    "nodes": [
+        {"type": "web_scraper", "query": "{{user_query}}"},
+        {"type": "knowledge_retrieval", "datasets": ["research_db"]},
+        {"type": "ai_chat", "prompt": "Analyze and synthesize..."}
+    ]
+}
 ```
 
-## 🔌 API Reference
-
-### Authentication
-```http
-POST /api/v1/auth/login
-POST /api/v1/auth/register
-POST /api/v1/auth/refresh
-GET  /api/v1/auth/me
-```
-
-### Datasets
-```http
-GET    /api/v1/datasets/                    # List datasets
-POST   /api/v1/datasets/                    # Create dataset
-GET    /api/v1/datasets/{id}                # Get dataset
-PUT    /api/v1/datasets/{id}                # Update dataset
-DELETE /api/v1/datasets/{id}                # Delete dataset
-POST   /api/v1/datasets/{id}/vectorize      # Start vectorization
-POST   /api/v1/datasets/{id}/import         # Import content
-GET    /api/v1/datasets/{id}/export         # Export content
-```
-
-### Chat
-```http
-GET    /api/v1/chat/                        # List chats
-POST   /api/v1/chat/                        # Create chat
-POST   /api/v1/chat/{id}/messages           # Send message
-POST   /api/v1/chat/{id}/stream             # Stream chat
-POST   /api/v1/chat/{id}/voice              # Voice message
-POST   /api/v1/chat/{id}/files              # File message
-```
-
-### OpenAI-Compatible
-```http
-POST   /api/v1/chat/openai/chat/completions # OpenAI-compatible endpoint
-```
-
-## 🎨 Frontend Components
-
-### Chat Interface
-Real-time chat with streaming responses:
-
-```typescript
-import { ChatInterface } from '@/components/Chat';
-
-<ChatInterface 
-  applicationId="app-id"
-  enableVoice={true}
-  enableFiles={true}
-  streamingEnabled={true}
-/>
-```
-
-### Dataset Management
-Comprehensive dataset tools:
-
-```typescript
-import { DatasetManager } from '@/components/Dataset';
-
-<DatasetManager 
-  showStats={true}
-  enableImport={true}
-  enableExport={true}
-/>
-```
-
-## 🔍 Search Examples
-
-### Semantic Search
+### 3. Document Processing Pipeline
 ```python
-from app.services.rag import RAGService
-
-rag_service = RAGService(db)
-results = await rag_service.retrieve_relevant_context(
-    application_id=app_id,
-    query="How to reset password",
-    limit=5,
-    search_mode="semantic"
-)
-```
-
-### Hybrid Search
-```python
-results = await rag_service.retrieve_relevant_context(
-    application_id=app_id,
-    query="vacation policy",
-    limit=10,
-    search_mode="hybrid",
-    similarity_threshold=0.6
-)
-```
-
-## 📊 Monitoring & Analytics
-
-### Built-in Analytics
-- Search query analysis
-- Popular content tracking
-- User engagement metrics
-- Performance monitoring
-- Error tracking and alerting
-
-### Health Checks
-```http
-GET /health              # Application health
-GET /health/db           # Database connectivity
-GET /health/redis        # Redis connectivity
-GET /metrics             # Prometheus metrics
+# Example: File upload + Processing + Knowledge update
+workflow = {
+    "nodes": [
+        {"type": "file_processor", "formats": ["pdf", "docx"]},
+        {"type": "knowledge_updater", "dataset": "documents"},
+        {"type": "ai_chat", "prompt": "Summarize new content..."}
+    ]
+}
 ```
 
 ## 🚢 Deployment
 
-### Production Docker
+### Production Configuration
 ```bash
-# Build production images
-docker-compose -f docker-compose.prod.yml build
-
-# Deploy to production
+# Build and deploy
 docker-compose -f docker-compose.prod.yml up -d
-```
 
-### Kubernetes
-```yaml
-# Example Kubernetes deployment
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: km-backend
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: km-backend
-  template:
-    metadata:
-      labels:
-        app: km-backend
-    spec:
-      containers:
-      - name: backend
-        image: km/backend:latest
-        ports:
-        - containerPort: 8000
+# With Celery workers for background processing
+docker-compose up -d celery-worker
 ```
 
 ### Scaling Considerations
-- **Database**: Use read replicas for high query loads
-- **Vector Search**: Consider dedicated vector databases for large datasets
-- **File Storage**: Use object storage (S3, GCS) for production files
-- **Caching**: Redis cluster for distributed caching
-- **Load Balancing**: Use nginx or cloud load balancers
+- **Database**: PostgreSQL with pgvector for vector operations
+- **Workflow Engine**: Distributed execution with Celery
+- **MCP Services**: Load balancing for external service calls
+- **Caching**: Redis for session and performance optimization
+
+## 🔒 Security Features
+
+### Enhanced Security
+- **Multi-factor Authentication**: Optional 2FA support
+- **API Rate Limiting**: Comprehensive rate limiting
+- **Input Sanitization**: Advanced input validation
+- **Audit Logging**: Complete activity tracking
+- **Secure MCP Integration**: Encrypted communication with external services
+
+## 📊 Analytics & Monitoring
+
+### Built-in Analytics
+- **Workflow Performance**: Execution time and success rates
+- **MCP Tool Usage**: External service call analytics
+- **Search Analytics**: Query patterns and result quality
+- **User Engagement**: Detailed usage metrics
+- **System Health**: Real-time monitoring and alerting
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-```bash
-# Backend development
-cd backend
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-
-# Frontend development
-cd frontend
-npm install
-npm run dev
-```
-
-### Testing
-```bash
-# Backend tests
-pytest
-
-# Frontend tests
-npm test
-
-# E2E tests
-npm run test:e2e
-```
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on the enhanced architecture and new features.
 
 ## 📄 License
 
@@ -423,14 +361,39 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 - **FastAPI**: For the excellent async Python framework
 - **React Community**: For the robust frontend ecosystem
 - **pgvector**: For PostgreSQL vector search capabilities
+- **LangChain**: For AI/LLM integration framework
+- **MCP Protocol**: For external tool integration standards
 
 ## 📞 Support
 
-- 📧 Email: not yet created
-- 💬 Discord: [Join our community](https://discord.gg/)
-- 📚 Documentation: [Full docs](https://google.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/tuankiet2640/km/issues)
+- 📧 Email: [Contact for support]
+- 💬 Discord: [Join our community]
+- 📚 Documentation: [Full documentation]
+- 🐛 Issues: [GitHub Issues]
 
 ---
 
-**Built with ❤️ by the KM Team** 
+**Built with ❤️ for the future of AI-powered knowledge management**
+
+## 🆕 What's New in v2.0.0
+
+### Major Features Added
+✅ **Workflow Engine**: Visual workflow creation and execution  
+✅ **MCP Integration**: External tool and service connectivity  
+✅ **Enhanced Multi-modal Support**: Voice, files, images  
+✅ **Advanced Search**: Hybrid semantic + keyword search  
+✅ **Real-time Streaming**: Live AI responses  
+✅ **Analytics Dashboard**: Comprehensive usage insights  
+✅ **Performance Optimization**: Caching and indexing improvements  
+✅ **Security Enhancements**: Advanced authentication and authorization  
+
+### Database Updates
+✅ **Updated for PostgreSQL**: Full support for your database setup  
+✅ **pgvector Integration**: Advanced vector search capabilities  
+✅ **Performance Optimizations**: Improved query performance  
+
+### Developer Experience
+✅ **Enhanced API Documentation**: Comprehensive OpenAPI specs  
+✅ **Docker Optimization**: Improved container performance  
+✅ **Development Tools**: Better debugging and monitoring  
+✅ **Type Safety**: Full TypeScript support 

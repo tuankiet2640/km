@@ -84,7 +84,7 @@ class DatasetList(BaseModel):
 
 class DatasetImport(BaseModel):
     """Dataset import configuration schema."""
-    import_type: str = Field(..., regex="^(csv|json|txt|pdf)$")
+    import_type: str = Field(..., pattern="^(csv|json|txt|pdf)$")
     separator: Optional[str] = Field(",", description="CSV separator")
     encoding: str = Field("utf-8", description="File encoding")
     skip_header: bool = Field(True, description="Skip first row in CSV")
@@ -96,7 +96,7 @@ class DatasetImport(BaseModel):
 
 class DatasetExport(BaseModel):
     """Dataset export configuration schema."""
-    format: str = Field(..., regex="^(json|csv|txt)$")
+    format: str = Field(..., pattern="^(json|csv|txt)$")
     include_embeddings: bool = Field(False)
     include_metadata: bool = Field(True)
     filter_active_only: bool = Field(True)
@@ -169,7 +169,7 @@ class DatasetSearchRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=1000)
     limit: int = Field(10, ge=1, le=100)
     similarity_threshold: float = Field(0.7, ge=0.0, le=1.0)
-    search_mode: str = Field("semantic", regex="^(semantic|keyword|hybrid)$")
+    search_mode: str = Field("semantic", pattern="^(semantic|keyword|hybrid)$")
     include_metadata: bool = Field(True)
     filter_active_only: bool = Field(True)
 
