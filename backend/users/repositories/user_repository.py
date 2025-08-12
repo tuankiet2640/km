@@ -1,36 +1,16 @@
-from typing import Optional, List
+from typing import Optional
 from sqlalchemy.orm import Session
+
+from backend.core.base.repository import BaseRepository
 from backend.users.models.user import User
 from backend.users.schemas.user import UserCreate, UserUpdate
 
-class UserRepository:
+class UserRepository(BaseRepository[User, UserCreate, UserUpdate]):
     def __init__(self, db: Session):
-        self.db = db
-
-    def get_by_id(self, user_id: int) -> Optional[User]:
-        return self.db.query(User).filter(User.id == user_id).first()
-
+        super().__init__(User, db)
+    
     def get_by_email(self, email: str) -> Optional[User]:
         return self.db.query(User).filter(User.email == email).first()
-
+    
     def get_by_username(self, username: str) -> Optional[User]:
         return self.db.query(User).filter(User.username == username).first()
-
-    def get_all(self, skip: int = 0, limit: int = 100) -> List[User]:
-        return self.db.query(User).offset(skip).limit(limit).all()
-
-    def create(self, user: User) -> User:
-        self.db.add(user)
-        self.db.commit()
-        self.db.refresh(user)
-        return user
-
-    def update(self, user: User) -> User:
-        self.db.add(user)
-        self.db.commit()
-        self.db.refresh(user)
-        return user
-
-    def delete(self, user: User) -> None:
-        self.db.delete(user)
-        self.db.commit()
