@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env
+*.sqlite3
+*.db
+*.log
+*.pot
+*.pyc
+*.mako
+
+# Jupyter Notebooks
+*.ipynb
+
+# VS Code
+.vscode/
+
+# Alembic
+alembic/versions/__pycache__/
+alembic/__pycache__/
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# System
+.DS_Store
+Thumbs.db
+
+# UI (if using node/npm)
+ui/node_modules/
+ui/dist/
+ui/.env
+
+# Test/coverage
+.coverage
+htmlcov/
+
+# Misc
+*.bak
+*.swp
+*.tmp
+
+# Ignore logs
+*.log
+
+# Ignore compiled files
+*.so
+*.dll
+*.exe
+*.out
+*.class
+
+# Ignore backup files
+*~
+*.bak
+
+# Ignore IDE files
+.idea/
+*.iml
+
+# Ignore database files
+*.sqlite3
+*.db
+
+# Ignore migrations
+alembic/versions/*.pyc
