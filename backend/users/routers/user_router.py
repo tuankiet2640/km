@@ -11,8 +11,8 @@ from backend.users.dependencies.auth import (
     get_current_active_superuser,
     get_user_service
 )
+from backend.users.models.user import User
 from backend.users.schemas.user import (
-    User,
     UserCreate,
     UserUpdate,
     UserResponse,

@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy.orm import relationship
 from backend.core.database import Base
 
 class User(Base):
@@ -14,3 +16,5 @@ class User(Base):
     is_superuser = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    folders = relationship("Folder", back_populates="owner")

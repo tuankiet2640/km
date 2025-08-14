@@ -23,11 +23,13 @@ class UserUpdate(BaseModel):
     is_active: Optional[bool] = None
 
 # Schema for user response
+
 class UserResponse(UserBase):
     id: int
     is_superuser: bool
     created_at: datetime
     updated_at: datetime
+    folders: Optional[list] = None
 
     class Config:
         from_attributes = True
