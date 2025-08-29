@@ -1,20 +1,21 @@
-from datetime import datetime
+from sqlalchemy import Column, String, Boolean, TIMESTAMP, UUID
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
+from sqlalchemy.ext.declarative import declarative_base
+import uuid
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, String
-from sqlalchemy.orm import relationship
-from backend.core.database import Base
+Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    username = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    full_name = Column(String)
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String(255), unique=True)
+    phone = Column(String(20))
+    nick_name = Column(String(150), unique=True)
+    username = Column(String(150), unique=True)
+    password = Column(String(150))
+    role = Column(String(150))
+    source = Column(String(10), default="LOCAL")
     is_active = Column(Boolean, default=True)
-    is_superuser = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
-    folders = relationship("Folder", back_populates="owner")
+    language = Column(String(10))
+    create_time = Column(TIMESTAMP, default="now()")
+    update_time = Column(TIMESTAMP, default="now()")
